@@ -142,7 +142,7 @@ function [dpeak] = isdoublepeak(had,tau,lay,col,cell)
     [hit_had] = SelectPMT(had,lay,col,cell);%2,1
     [hit_tau, distance,angle] = SelectPMT(tau,lay,col,cell);
     hit_sum = [hit_had;hit_tau];
-    if (angle > 35 && angle <45) ||...
+    if (angle > 35 && angle <45)
         dpeak = -1;
         return
     end
