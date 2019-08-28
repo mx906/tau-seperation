@@ -109,6 +109,16 @@ void PrimaryGenerator::GeneratePrimaryVertex(G4Event* event)
 		event->AddPrimaryVertex(vertexB);
 
 	}
-
-  
+	
+	/* Uniform light source
+	G4ParticleDefinition* OpPhoton = G4ParticleTable::GetParticleTable()->FindParticle("opticalphoton");
+	G4double phi = G4UniformRand() * 360 * deg; 
+	G4double theta = G4UniformRand() * 180 * deg;
+	G4double uz = std::cos(theta);
+	G4double ux = std::sin(theta) * std::cos(phi);
+	G4double uy = std::sin(theta) * std::sin(phi); 
+	G4PrimaryParticle* particle = new G4primaryParticle(OpPhoton);
+        vertexB->AddPrimary(particle);
+	event->AddprimaryVertex(vertexB)
+  	*/
 }
