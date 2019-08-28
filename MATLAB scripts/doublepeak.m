@@ -143,7 +143,6 @@ function [dpeak] = isdoublepeak(had,tau,lay,col,cell)
     [hit_tau, distance,angle] = SelectPMT(tau,lay,col,cell);
     hit_sum = [hit_had;hit_tau];
     if (angle > 35 && angle <45) ||...
-        length(hit_had)+length(hit_tau) < 200 
         dpeak = -1;
         return
     end
@@ -206,8 +205,9 @@ function [dpeak] = isdoublepeak(had,tau,lay,col,cell)
     %title({sprintf(format1,chisquare/(length(x)-6));sprintf(format2,distance,angle,distance/0.3/0.75)});
     
     % ignore peaks that are too narrow/wide or too low in magnitude
+    ra = (Results(1,4)/Results(1,3))/(Results(2,4)/Results(2,3));
     if Results(1,3)/Results(2,3) > 3.5 || Results(2,3)/Results(1,3) > 3.5 ||...
-       Results(1,4)<1 || Results(2,4)<1 || ...
+       ra > 8 || ra < 0.125 || Results(1,4)<1 || Results(2,4)<1 || ...
        Results(1,3) < 5 || Results(2,3) < 5
         dpeak = 0;
         return
@@ -227,7 +227,7 @@ function [dpeak] = isdoublepeak(had,tau,lay,col,cell)
         in = strfind(id,[-1 1]);
         in = [in,strfind(id,[1 -1])];
         % derivative at the inflection point
-        in = in(abs(d1(in))<max(b_sum)/200);
+        in = in(abs(d1(in))<1);
         
         if length(in)==1
             %text(x(in)+.02,b_sum(in),num2str((1:numel(b1(in)+b2(in)))'));
